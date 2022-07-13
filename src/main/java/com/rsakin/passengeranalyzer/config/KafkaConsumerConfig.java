@@ -26,7 +26,7 @@ public class KafkaConsumerConfig {
     private String bootstrapAddress;
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, String> simpleKafkaListenerContainerFactory() {
+    public ConcurrentKafkaListenerContainerFactory<String, String> testKafkaListenerContainerFactory() {
         final ConcurrentKafkaListenerContainerFactory<String, String> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(simpleConsumerFactory());
@@ -34,16 +34,15 @@ public class KafkaConsumerConfig {
     }
 
     @Bean
-    public ConcurrentKafkaListenerContainerFactory<String, String> customKafkaListenerContainerFactory() {
+    public ConcurrentKafkaListenerContainerFactory<String, String> passengerKafkaListenerContainerFactory() {
         final ConcurrentKafkaListenerContainerFactory<String, String> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
-        factory.setConsumerFactory(customConsumerFactory());
+        factory.setConsumerFactory(passengerConsumerFactory());
         factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
         factory.setErrorHandler((e, consumerRecord) ->
                 log.info("[kafka-custom-error-handler] message: {}", e.getMessage()));
         return factory;
     }
-
 
     // TODO - rmzn : refactor with common factory
     private ConsumerFactory<String, String> simpleConsumerFactory() {
@@ -57,7 +56,7 @@ public class KafkaConsumerConfig {
         return new DefaultKafkaConsumerFactory<>(configProps);
     }
 
-    private ConsumerFactory<String, Object> customConsumerFactory() {
+    private ConsumerFactory<String, Object> passengerConsumerFactory() {
         final Map<String, Object> configProps = new HashMap<>();
         configProps.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         configProps.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
