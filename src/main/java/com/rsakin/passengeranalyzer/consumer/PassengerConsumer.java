@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class PassengerConsumer {
 
-    private static final String TEST_TOPIC = "test-topic";
-    private static final String TEST_TOPIC_PASSENGER = "passenger-topic";
+    private static final String TEST_TOPIC = "testt";
+    private static final String TEST_TOPIC_PASSENGER = "passengert";
 
     private static final String TEST_GROUP = "test-first-group";
-    private static final String TEST_GROUP_NEW = "test-second-group";
+//    private static final String TEST_GROUP_NEW = "test-second-group";
 
     private static final String SIMPLE_CONTAINER_FACTORY = "testKafkaListenerContainerFactory";
     private static final String CUSTOM_CONTAINER_FACTORY = "passengerKafkaListenerContainerFactory";
@@ -30,7 +30,7 @@ public class PassengerConsumer {
         log.info("Message: '" + message + "' from listener2");
     }
 
-    @KafkaListener(topics = TEST_TOPIC, groupId = TEST_GROUP_NEW, containerFactory = SIMPLE_CONTAINER_FACTORY)
+    @KafkaListener(topics = TEST_TOPIC, groupId = TEST_GROUP, containerFactory = SIMPLE_CONTAINER_FACTORY)
     public void messageListener3(String message) {
         log.info("Message: '" + message + "' from listener3");
     }

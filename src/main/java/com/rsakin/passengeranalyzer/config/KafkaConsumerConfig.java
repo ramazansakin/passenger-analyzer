@@ -63,7 +63,9 @@ public class KafkaConsumerConfig {
         configProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
         configProps.put(ErrorHandlingDeserializer.KEY_DESERIALIZER_CLASS, StringDeserializer.class);
         configProps.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class);
-        configProps.put(JsonDeserializer.TRUSTED_PACKAGES, "com.rsakin.passengeranalyzer.dto");
+        // NOTE : If you have a problem on conversion, you can define TYPE_MAPPINGS like below!
+        configProps.put(JsonDeserializer.TYPE_MAPPINGS, "passengert:com.rsakin.passengeranalyzer.dto.PassengerDTO");
+        configProps.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
 
         return new DefaultKafkaConsumerFactory<>(configProps);
     }
