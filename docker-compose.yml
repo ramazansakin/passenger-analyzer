@@ -1,36 +1,18 @@
-version: '3.1'
+version: '3'
 services:
-  passenger-analyzer:
-    image: passenger-analyzer
-    build: ./
-    ports:
-      - "8081:8081"
-    restart: on-failure
-    networks:
-      - microservice-network
-    depends_on:
-      - fluentd
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
-    container_name: elasticsearch
-    environment:
-      - discovery.type=single-node
-    volumes:
-      - esdata:/usr/share/elasticsearch/data
-    ports:
-      - "9200:9200"
-    networks:
-      - elasticsearch
-  kibana:
-    image: docker.elastic.co/kibana/kibana:7.2.0
-    environment:
-      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
-    ports:
-      - "5601:5601"
-    networks:
-      - elasticsearch
-    depends_on:
-      - elasticsearch
+#  passenger-analyzer:
+#    image: passenger-analyzer
+#    build: ./
+#    ports:
+#      - "8081:8081"
+#    restart: on-failure
+#    networks:
+#      - microservice-network
+#    depends_on:
+#      - fluentd
+#    environment:
+#      - FLUENTD_HOST=fluentd
+#      - FLUENTD_PORT=24224
   fluentd:
     build: ./fluentd
     volumes:
@@ -38,8 +20,40 @@ services:
     ports:
       - "24224:24224"
       - "24224:24224/udp"
-    networks:
-      - microservice-network
-      - elasticsearch
-    depends_on:
-      - elasticsearch
+#    networks:
+#      - microservice-network
+#      - elasticsearch
+#    depends_on:
+#      - elasticsearch
+
+#  elasticsearch:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
+#    container_name: elasticsearch
+#    environment:
+#      - discovery.type=single-node
+#    volumes:
+#      - esdata:/usr/share/elasticsearch/data
+#    ports:
+#      - "9200:9200"
+#    networks:
+#      - elasticsearch
+#  kibana:
+#    image: docker.elastic.co/kibana/kibana:7.2.0
+#    environment:
+#      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+#    ports:
+#      - "5601:5601"
+#    networks:
+#      - elasticsearch
+#    depends_on:
+#      - elasticsearch
+
+#networks:
+#  microservice-network:
+#    driver: bridge
+#  elasticsearch:
+#    driver: bridge
+
+#volumes:
+#  esdata:
+#    driver: local
