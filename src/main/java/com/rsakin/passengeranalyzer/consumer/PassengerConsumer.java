@@ -7,7 +7,8 @@ import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 
 @Slf4j
-@Component
+// De-active this for testing EFK stack with fake data
+//@Component
 public class PassengerConsumer {
 
     private static final String TEST_TOPIC = "testt";

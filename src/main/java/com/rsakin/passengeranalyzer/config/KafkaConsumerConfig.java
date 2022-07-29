@@ -18,8 +18,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-@EnableKafka
-@Configuration
+//@EnableKafka
+//@Configuration
 public class KafkaConsumerConfig {
 
     @Value("${kafka.bootstrapAddress}")
